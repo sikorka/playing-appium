@@ -8,4 +8,65 @@
     <artifactId>playing-appium</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <appDir>${pom.basedir}/app</appDir>
+        <appName>FlickrBrowser-cal.zip</appName>
+
+        <testResourcesDir>${project.build.testSourceDirectory}/../resources</testResourcesDir>
+        <testTargetDir>${project.build.testOutputDirectory}</testTargetDir>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+
+                        <id>COPY-APP-TO-RESOURCES</id>
+
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${testResourcesDir}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${appDir}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+
+                        <id>UNZIP-THE-APP</id>
+
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <unzip src="${testTargetDir}/FlickrBrowser-cal.zip"
+                                       dest="${testTargetDir}"
+                                       overwrite="true"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
 </project>
