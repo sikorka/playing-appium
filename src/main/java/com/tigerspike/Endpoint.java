@@ -17,7 +17,7 @@ public abstract class Endpoint {
     }
 
     protected Gson getGson() {
-        //if (gson == null)
+        if (gson == null)
             gson = new GsonBuilder().
                 setPrettyPrinting().
                 serializeNulls().
