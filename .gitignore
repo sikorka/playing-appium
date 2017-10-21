@@ -1,6 +1,7 @@
 
 **/*.app
 **/__*
+**/resources/FlickrBrowser-cal.zip
 
 
 # Created by https://www.gitignore.io/api/java,macos,maven,intellij+all
