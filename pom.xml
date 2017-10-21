@@ -9,12 +9,54 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
         <appDir>${pom.basedir}/app</appDir>
         <appName>FlickrBrowser-cal.zip</appName>
 
         <testResourcesDir>${project.build.testSourceDirectory}/../resources</testResourcesDir>
         <testTargetDir>${project.build.testOutputDirectory}</testTargetDir>
     </properties>
+
+    <dependencies>
+
+        <!-- helps query endpoint -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+
+        <!-- reads JSON response into Java object -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+
+        <!-- Reader to String -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
@@ -64,6 +106,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
 
         </plugins>
