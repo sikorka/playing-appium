@@ -5,7 +5,11 @@ package com.tigerspike.log;
  */
 public class Log {
 
-    /** Logs object to standard out. */
+    /**
+     * Logs object to standard out.
+     * 
+     * @param ob any object
+     * */
     public static void info(Object ob) {
         System.out.println(ob);
     }
