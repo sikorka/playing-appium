@@ -1,4 +1,4 @@
-package com.tigerspike.endpoints;
+package com.tigerspike.endpoint;
 
 import org.junit.runner.Description;
 import org.junit.BeforeClass;

@@ -1,4 +1,4 @@
-package com.tigerspike.endpoints;
+package com.tigerspike.endpoint;
 
 import com.google.gson.GsonBuilder;
 import com.tigerspike.UrlHelper;
