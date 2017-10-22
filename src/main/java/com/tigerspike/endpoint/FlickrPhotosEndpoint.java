@@ -35,7 +35,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
      * @return endpoint URL with tags param
      */
     private URI getEndpointUrlByTags(String tags) {
-        URI uri = UrlHelper.createUrl(FLICKR_PHOTOS_JSON_URL, "tags", tags);
+        URI uri = UrlHelper.addParamToUrl(FLICKR_PHOTOS_JSON_URL, "tags", tags);
 
         return uri;
     }
