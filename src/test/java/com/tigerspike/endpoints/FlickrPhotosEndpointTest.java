@@ -8,12 +8,14 @@ import org.junit.rules.TestWatcher;
 
 import java.util.List;
 
-import static com.tigerspike.log.Log.info;
+import static com.tigerspike.Log.info;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 /**
  * Tests some of the FlickrPhotosEndpoint methods.
+ *
+ * Makes sure endpoint behaves as expected before heavy UI tests are run.
  */
 public class FlickrPhotosEndpointTest {
     static FlickrPhotosEndpoint flickrPhotosEndpoint;
@@ -104,7 +106,7 @@ public class FlickrPhotosEndpointTest {
 
     /** When a test fails: print photos. */
     @Rule
-    public TestWatcher failedTestRule = new TestWatcher() {
+    public TestWatcher printPhotosOnFailedTestRule = new TestWatcher() {
 
         @Override
         protected void failed(Throwable e, Description description) {
@@ -118,7 +120,7 @@ public class FlickrPhotosEndpointTest {
     };
 
     private static String MIDDLE = "_ulalaGdzieKurekSzesc_image_part_00";
-    private static String TEST_PHOTO_2 = "2" + MIDDLE + "2";
+    static String TEST_PHOTO_2 = "2" + MIDDLE + "2";
     static String TEST_PHOTO_1 = "1" + MIDDLE + "1";
     static String TEST_PHOTO_3 = "3" + MIDDLE + "3";
     static String TEST_PHOTO_4 = "4" + MIDDLE + "4";

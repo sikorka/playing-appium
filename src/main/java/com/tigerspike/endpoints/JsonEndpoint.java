@@ -1,4 +1,4 @@
-package com.tigerspike;
+package com.tigerspike.endpoints;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,7 +8,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 /**
  * Represents any endpoint returning JSON contents.
  */
-public abstract class Endpoint {
+public abstract class JsonEndpoint {
     private Gson gson = null;
 
     protected HttpClient createHttpClient() {

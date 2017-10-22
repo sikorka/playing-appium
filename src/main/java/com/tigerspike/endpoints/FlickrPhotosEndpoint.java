@@ -1,7 +1,7 @@
 package com.tigerspike.endpoints;
 
 import com.google.gson.GsonBuilder;
-import com.tigerspike.Endpoint;
+import com.tigerspike.UrlHelper;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
@@ -11,41 +11,43 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tigerspike.log.Log.*;
+import static com.tigerspike.Log.*;
 
 /**
  * Helps with getting Flickr photos and their titles'.
  */
-public class FlickrPhotosEndpoint extends Endpoint {
+public class FlickrPhotosEndpoint extends JsonEndpoint {
 
     public static final String FLICKR_PHOTOS_JSON_URL =
             "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1";
 
+    /** Photos returned from encpoint. */
     private Photos photos;
 
     /**
-     * Preps parametrized endpoint URL. Encodes quotes and spaces.
+     * Preps parametrized endpoint URL. Encodes quotes, spaces or other special chars.
      *
-     * @param tag tag to query endpoint with, surrounded with quotes
-     * @return endpoint URL with tag param
+     * @param tags tag(s) to query endpoint with
+     * @return endpoint URL with tags param
      */
-    private String getEndpointUrlByTag(String tag) {
-        //TODO use URL class
+    private URI getEndpointUrlByTags(String tags) {
+        URI uri = UrlHelper.createUrl(FLICKR_PHOTOS_JSON_URL, "tags", tags);
 
-        return FLICKR_PHOTOS_JSON_URL + "&tags=%22" + (tag == null ? null : tag.replaceAll(" ", "%20")) + "%22";
+        return uri;
     }
 
     /**
      * Queries Flickr photos endpoint.
      *
-     * @param tag tag to query Flickr photos endpoint by
+     * @param tags tag, or tags separated with commas, to query Flickr photos endpoint with
      * @return a collection of images titles
      */
-    public List<String> getTitlesOfPhotosByTag(String tag) {
-        photos = getPhotosByTag(tag);
+    public List<String> getTitlesOfPhotosByTag(String tags) {
+        photos = getPhotosByTags(tags);
 
         if (photos == null) return null;
 
@@ -85,11 +87,11 @@ public class FlickrPhotosEndpoint extends Endpoint {
         String tags;
     }
 
-    private Photos getPhotosByTag(String tag) {
+    private Photos getPhotosByTags(String tags) {
 
         HttpClient client = createHttpClient();
 
-        HttpGet request = requestEndpointByTag(tag);
+        HttpGet request = requestEndpointByTag(tags);
 
         HttpResponse response = performRequestAndCheckStatusCode(client, request);
 
@@ -101,7 +103,7 @@ public class FlickrPhotosEndpoint extends Endpoint {
     }
 
     private HttpGet requestEndpointByTag(String tag) {
-        String url = getEndpointUrlByTag(tag);
+        URI url = getEndpointUrlByTags(tag);
         info("URL is: " + url);
 
         HttpGet get = new HttpGet(url);
@@ -154,6 +156,8 @@ public class FlickrPhotosEndpoint extends Endpoint {
                 info("Oops, server responded with: " + statusLine.getStatusCode());
             }
 
+            //TODO check JSON content too
+
         } catch(IOException e) {
             info("Something went wrong because: " + e);
         }
@@ -169,7 +173,7 @@ public class FlickrPhotosEndpoint extends Endpoint {
     public static void main(String... args) {
         FlickrPhotosEndpoint e = new FlickrPhotosEndpoint();
 
-        Photos photos = e.getPhotosByTag("u1l2a3l4a5,ulalagdziekurekszesc");
+        Photos photos = e.getPhotosByTags("u1l2a3l4a5,ulalagdziekurekszesc");
         info(photos);
 
         info(e.getTitlesOfPhotosByTag("london"));
