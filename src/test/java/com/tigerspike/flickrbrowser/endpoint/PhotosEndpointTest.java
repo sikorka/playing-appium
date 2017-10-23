@@ -1,5 +1,6 @@
-package com.tigerspike.endpoint;
+package com.tigerspike.flickrbrowser.endpoint;
 
+import com.tigerspike.TagsGenerator;
 import org.junit.runner.Description;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -105,7 +106,7 @@ public class FlickrPhotosEndpointTest {
 
     @Test
     public void notExistingTagsTest_whenNonExistingTags_thenPhotosListIsEmpty() {
-        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags("notExistingTagsTest_whenNonExistingTags_thenPhotosListIsEmpty");
+        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags(TagsGenerator.getNonExistingTag());
 
         assertThat("when search performed with non existing tags, then photos list is empty",
                 titles,

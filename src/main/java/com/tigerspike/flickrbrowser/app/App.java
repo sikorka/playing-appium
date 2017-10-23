@@ -12,7 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 public class App {
     public static final String APP_FILE_NAME = PropertiesHelper.getProperty("APP_FILE_NAME");
 
-    SearchScreen searchScreen;
+    public SearchScreen searchScreen;
     //PhotoScreen photoScreen;
 
     public App(WebDriver driver) {
