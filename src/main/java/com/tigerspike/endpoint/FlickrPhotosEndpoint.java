@@ -164,18 +164,4 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         return null;
     }
 
-    @Override
-    public String toString() {
-        return photos.toString();
-    }
-
-    public static void main(String... args) {
-        FlickrPhotosEndpoint e = new FlickrPhotosEndpoint();
-
-        Photos photos = e.getPhotosByTags("u1l2a3l4a5,ulalagdziekurekszesc");
-        info(photos);
-
-        info(e.getTitlesOfPhotosByTags("london"));
-    }
-
 }
