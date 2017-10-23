@@ -23,19 +23,21 @@ Run
     mvn clean test
 
 
+
 Known issues
-============
+------------
 
 - Even though in firewall settings the app accepts incoming connections, still a popup keeps being displayed. 
+Workaround: disable firewall (not recommended). 
 
-- Time to start the app with Appium with the described setup is usually >20 minutes. What a bummer. 
+- `searchTextField.submit()` does not work: `Method is not implemented` exception thrown. 
+Workaround: using `searchTextField.sendKeys("\n")` instead. 
 
-- `searchTextField.submit()` does not work. `Method is not implemented` exception thrown. Using `searchTextField.sendKeys("\n")` instead. 
+- Using `PageFactory`'s search mechanisms to get title text does not work. 
+Workaround: using driver's regular `findElementByXpath()` instead. 
 
 
 Work left
-=========
+---------
 
- - Iterating by titles in photos grid 
  - Cucumber tests 
- - Reading capabilit
