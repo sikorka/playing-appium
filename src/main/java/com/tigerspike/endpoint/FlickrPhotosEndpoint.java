@@ -46,7 +46,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
      * @param tags tag, or tags separated with commas, to query Flickr photos endpoint with
      * @return a collection of images titles
      */
-    public List<String> getTitlesOfPhotosByTag(String tags) {
+    public List<String> getTitlesOfPhotosByTags(String tags) {
         photos = getPhotosByTags(tags);
 
         if (photos == null) return null;
@@ -104,7 +104,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
 
     private HttpGet requestEndpointByTag(String tag) {
         URI url = getEndpointUrlByTags(tag);
-        info("URL is: " + url);
+        info("URL: " + url);
 
         HttpGet get = new HttpGet(url);
 
@@ -176,7 +176,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         Photos photos = e.getPhotosByTags("u1l2a3l4a5,ulalagdziekurekszesc");
         info(photos);
 
-        info(e.getTitlesOfPhotosByTag("london"));
+        info(e.getTitlesOfPhotosByTags("london"));
     }
 
 }

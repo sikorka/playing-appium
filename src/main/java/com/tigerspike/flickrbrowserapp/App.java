@@ -1,17 +1,27 @@
 package com.tigerspike.flickrbrowserapp;
 
-import com.tigerspike.flickrbrowserapp.screen.MainScreen;
-import com.tigerspike.flickrbrowserapp.screen.PhotoScreen;
+import com.tigerspike.flickrbrowserapp.screen.SearchScreen;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 
 /**
- * Represetns <code>FlickrBrowser app</code>.
+ * Represents <code>FlickrBrowser app</code>.
  */
 public class App {
-    MainScreen mainScreen;
-    PhotoScreen photoScreen;
+    public static final String APP_FILE_NAME = "FlickrBrowser-cal.app";
 
-    public App() {
-        mainScreen = new MainScreen();
-        photoScreen = new PhotoScreen();
+    SearchScreen searchScreen;
+    //PhotoScreen photoScreen;
+
+    public App(WebDriver driver) {
+        searchScreen = new SearchScreen();
+
+        PageFactory.initElements(
+                new AppiumFieldDecorator(driver),
+                searchScreen);
+
+        //photoScreen = new PhotoScreen(driver());
+
     }
 }

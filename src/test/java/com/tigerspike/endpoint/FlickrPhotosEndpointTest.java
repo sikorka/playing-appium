@@ -28,7 +28,7 @@ public class FlickrPhotosEndpointTest {
 
     @Test
     public void noTag_whenNullTag_thenPhotosListNonEmpty_and_containsTestPhoto() {
-        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTag(null);
+        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags(null);
 
         assertThat("when 'null' tag then photos list non empty",
                 titles,
@@ -41,7 +41,7 @@ public class FlickrPhotosEndpointTest {
 
     @Test
     public void testTag_whenTestTag_thenPhotosListContainsTestTitle() {
-        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTag("u1l2a3l4a5");
+        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags("u1l2a3l4a5");
 
         assertThat("when 'u1l2a3l4a5' tag then photos list contains at least 3 photos",
                 titles,
@@ -58,7 +58,7 @@ public class FlickrPhotosEndpointTest {
 
     @Test
     public void twoTestTags_whenTwoTestTagsCommaSeparated_thenPhotosListContainsTestTitles() {
-        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTag("u1l2a3l4a5,ulalaGdzieKurekSzesc");
+        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags("u1l2a3l4a5,ulalaGdzieKurekSzesc");
 
         assertThat("when 'u1l2a3l4a5' tag then photos list contains at least 3 photos",
                 titles,
@@ -75,7 +75,7 @@ public class FlickrPhotosEndpointTest {
 
     @Test
     public void twoTestTags_whenTwoTestTagsSeparatedWithCommaAndSpaces_thenPhotosListContainsTestTitles() {
-        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTag("u1l2a3l4a5,  ulalaGdzieKurekSzesc");
+        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags("u1l2a3l4a5,  ulalaGdzieKurekSzesc");
 
         assertThat("when 'u1l2a3l4a5 and ulalaGdzieKurekSzesc' tag then photos list contains at least 3 photos",
                 titles,
@@ -92,7 +92,7 @@ public class FlickrPhotosEndpointTest {
 
     @Test
     public void twoTestTags_whenTwoTestTagsSplittedWithOneSpace_thenPhotosListContainsTestTitles() {
-        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTag("u1l2a3l4a5 ulalaGdzieKurekSzesc");
+        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags("u1l2a3l4a5 ulalaGdzieKurekSzesc");
 
         assertThat("when tags splitted only with space, then photos list contains only items for joined tag string 'u1l2a3l4a5ulalaGdzieKurekSzesc'",
                 titles,
