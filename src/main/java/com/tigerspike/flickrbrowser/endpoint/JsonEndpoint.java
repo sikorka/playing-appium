@@ -1,4 +1,4 @@
-package com.tigerspike.endpoint;
+package com.tigerspike.flickrbrowser.endpoint;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,7 +1,4 @@
-package com.tigerspike.flickrbrowserapp.screen;
-
-import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebDriver;
+package com.tigerspike.flickrbrowser.app.screen;
 
 /**
  * App's screen.

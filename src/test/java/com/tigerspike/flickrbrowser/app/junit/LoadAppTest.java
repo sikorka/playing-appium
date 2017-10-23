@@ -1,5 +1,6 @@
-package com.tigerspike.flickrbrowserapp;
+package com.tigerspike.flickrbrowser.app.junit;
 
+import com.tigerspike.flickrbrowser.app.App;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,7 +14,8 @@ import static org.hamcrest.Matchers.is;
 /**
  * Checks whether app loads.
  */
-public class FlickrBrowserAppLoadTest extends FlickrBrowserAppTest {
+@Ignore("cause: slows cucumber tests down")
+public class LoadAppTest extends AbstractAppTest {
 
     private static App app;
     private static IOSDriver driver;

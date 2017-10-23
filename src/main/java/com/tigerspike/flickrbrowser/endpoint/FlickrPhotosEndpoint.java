@@ -1,4 +1,4 @@
-package com.tigerspike.endpoint;
+package com.tigerspike.flickrbrowser.endpoint;
 
 import com.google.gson.GsonBuilder;
 import com.tigerspike.UrlHelper;
@@ -63,7 +63,11 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
             if (items == null) return null;
 
             List<String> list = new ArrayList<String>();
-            items.forEach( photo -> list.add(photo.title) );
+
+            //went down with Java version for cucumber
+            //items.forEach( photo -> list.add(photo.title) );
+            for (Photo photo : items)
+                list.add(photo.title);
 
             return list;
         }
@@ -71,13 +75,17 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         @Override
         public String toString() {
             //TODO can't use getGson()
+            return prettyPrint();
+        }
 
+        public String prettyPrint() {
             return new GsonBuilder().
                     setPrettyPrinting().
                     serializeNulls().
                     create().
                     toJson(this);
         }
+
     }
 
     /** Photo class for Gson. */
@@ -164,4 +172,10 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         return null;
     }
 
+    @Override
+    public String toString() {
+        if (photos == null) return null;
+
+        return photos.prettyPrint();
+    }
 }

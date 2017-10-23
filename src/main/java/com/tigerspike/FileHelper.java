@@ -23,7 +23,7 @@ public class FileHelper {
             return new File(
                     FileHelper.class.getClassLoader().
                             getResource(fileNameUnderResources).
-                            toURI().
+                            toURI(). //adds encoding here
                             toURL().
                             getFile());
 

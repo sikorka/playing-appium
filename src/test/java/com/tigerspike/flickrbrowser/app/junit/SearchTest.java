@@ -1,7 +1,7 @@
-package com.tigerspike.flickrbrowserapp;
+package com.tigerspike.flickrbrowser.app.junit;
 
-import com.tigerspike.IOSDriverBuilder;
-import com.tigerspike.endpoint.FlickrPhotosEndpoint;
+import com.tigerspike.flickrbrowser.endpoint.FlickrPhotosEndpoint;
+import com.tigerspike.flickrbrowser.app.App;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.*;
 import org.junit.rules.TestWatcher;
@@ -18,25 +18,23 @@ import static org.hamcrest.Matchers.*;
 /**
  * Compares endpoint's photos with app's photos.
  */
-public class FlickrBrowserAppSearchTest extends FlickrBrowserAppTest {
+@Ignore("cause: slows cucumber tests down")
+public class SearchTest extends AbstractAppTest {
 
-    private static App app;
-    private static IOSDriver driver;
+    protected static App app;
+    protected static IOSDriver driver;
 
-    private static FlickrPhotosEndpoint endpoint;
+    protected static FlickrPhotosEndpoint endpoint;
 
-    private List<String> endpointTitles;
-    private List<String> appsTitles;
-    private String searchTags;
+    protected List<String> endpointTitles;
+    protected List<String> appsTitles;
+    protected String searchTags;
 
 
     @BeforeClass
     public static void setupClass() throws Exception {
-
         driver = createDriver();
-
         app = createApp(driver);
-
         endpoint = new FlickrPhotosEndpoint();
     }
 
