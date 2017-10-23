@@ -1,4 +1,4 @@
-package com.tigerspike.flickrbrowserapp.screen;
+package com.tigerspike.flickrbrowser.app.screen;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

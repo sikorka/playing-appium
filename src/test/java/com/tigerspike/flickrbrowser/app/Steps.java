@@ -1,15 +1,17 @@
-package com.tigerspike.flickrbrowserapp.steps;
+package com.tigerspike.flickrbrowser.app;
 
+import com.tigerspike.FileHelper;
+import com.tigerspike.IOSDriverBuilder;
 import com.tigerspike.TagsGenerator;
-import com.tigerspike.endpoint.FlickrPhotosEndpoint;
-import com.tigerspike.flickrbrowserapp.App;
-import com.tigerspike.flickrbrowserapp.junit.AppTest;
+import com.tigerspike.flickrbrowser.endpoint.FlickrPhotosEndpoint;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
+import org.hamcrest.Matchers;
 
+import java.io.File;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
@@ -18,56 +20,64 @@ import static org.hamcrest.MatcherAssert.*;
 /**
  * Step definitions for features.
  */
-public abstract class StepDefinitions extends AppTest {
+public class Steps {
 
-    protected static App app;
-    protected static IOSDriver driver;
+    private App app;
+    private IOSDriver driver;
+    private FlickrPhotosEndpoint endpoint;
 
-    protected static FlickrPhotosEndpoint endpoint;
-
-    protected List<String> endpointTitles;
-    protected List<String> appsTitles;
-    protected String searchTags;
-
+    private List<String> endpointTitles;
+    private List<String> appsTitles;
+    private String searchTags;
 
 
-    @Given("^Kasia opens the app on her phone$")
+
+    @Given("^Michelle opens the app on her phone$")
     public void michelle_opens_the_app_on_her_phone() throws Throwable {
         openApp();
     }
 
-    private static void openApp() throws Exception {
+    private void openApp() throws Exception {
         driver = createDriver();
         app = createApp(driver);
+        endpoint = new FlickrPhotosEndpoint();
     }
 
-    @When("^She submits single tag '(.*)' to search by$")
+    @When("^She submits single tag (.*) to search by$")
     public void she_submits_single_tag_london_to_search_by(String tags) throws Throwable {
         typeAndSubmit(tags);
     }
 
     @Then("^The photos titles displayed are equal to the ones returned from Photos API$")
     public void the_photos_titles_displayed_are_equal_to_the_ones_returned_from_Photos_API() throws Throwable {
-        endpoint = new FlickrPhotosEndpoint();
-        endpointTitles = endpoint.getTitlesOfPhotosByTags(searchTags);
 
+        endpointTitles = endpoint.getTitlesOfPhotosByTags(searchTags);
         appsTitles = app.searchScreen.getTitles(driver);
 
         assertThat("when search by single tag is performed, " +
                         "then photos displayed are equal photos returned from Photos API",
                 appsTitles,
                 is(equalTo(endpointTitles)));
+
+        cleanUpDriver();
     }
 
-    @When("^She enters single non-existing tag to search by$")
+    @When("^She submits single non-existing tag to search by$")
     public void she_enters_single_tag_non_existing_tag_here_to_search_by() throws Throwable {
         typeAndSubmit(TagsGenerator.getNonExistingTag());
     }
 
     @Then("^Nothing is displayed in the app$")
     public void nothing_is_displayed_in_the_app() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
+        appsTitles = app.searchScreen.getTitles(driver);
+
+        assertThat("when search by non-existing tag is performed, " +
+                        "then no photos are displayed",
+                appsTitles,
+                hasSize(0));
+
+        cleanUpDriver();
     }
 
     @When("^She enters nothing into search box and submits$")
@@ -75,15 +85,33 @@ public abstract class StepDefinitions extends AppTest {
         typeAndSubmit("");
     }
 
-    @When("^She enters two <tags> to search by$")
+    @When("^She enters two tags (.*) to search by$")
     public void sheEntersTwoTagsToSearchBy(String tags) throws Throwable {
         typeAndSubmit(tags);
     }
 
-    //TODO reuse AppSearchTest fields and methods, move somewhere better
-    protected void typeAndSubmit(String tags) {
+    //TODO how to reuse SearchTest fields and methods (move somewhere better)
+    private void typeAndSubmit(String tags) {
         searchTags = tags;
         app.searchScreen.typeSearchTermAndSubmit(searchTags);
+    }
+
+    private App createApp(IOSDriver driver) {
+        return new App(driver);
+    }
+
+    private IOSDriver createDriver() throws Exception {
+        return IOSDriverBuilder.buildDriver(getAppFile());
+    }
+
+    private void cleanUpDriver() {
+        if (driver == null) return;
+
+        driver.quit();
+    }
+
+    private File getAppFile() {
+        return FileHelper.fromResources(App.APP_FILE_NAME);
     }
 
 }

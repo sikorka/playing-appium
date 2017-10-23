@@ -1,7 +1,6 @@
-package com.tigerspike.flickrbrowserapp;
+package com.tigerspike.flickrbrowser.app;
 
-import com.tigerspike.PropertiesHelper;
-import com.tigerspike.flickrbrowserapp.screen.SearchScreen;
+import com.tigerspike.flickrbrowser.app.screen.SearchScreen;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -10,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
  * Represents <code>FlickrBrowser app</code>.
  */
 public class App {
-    public static final String APP_FILE_NAME = PropertiesHelper.getProperty("APP_FILE_NAME");
+    public static final String APP_FILE_NAME = "FlickrBrowser-cal.app";
 
     public SearchScreen searchScreen;
     //PhotoScreen photoScreen;

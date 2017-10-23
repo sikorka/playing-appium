@@ -1,8 +1,8 @@
-package com.tigerspike.flickrbrowserapp.junit;
+package com.tigerspike.flickrbrowser.app.junit;
 
 import com.tigerspike.FileHelper;
 import com.tigerspike.IOSDriverBuilder;
-import com.tigerspike.flickrbrowserapp.App;
+import com.tigerspike.flickrbrowser.app.App;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
@@ -15,7 +15,7 @@ import static com.tigerspike.Log.info;
 /**
  * Any app's test.
  */
-public abstract class AppTest {
+public abstract class AbstractAppTest {
 
     protected static App createApp(IOSDriver driver) {
         return new App(driver);

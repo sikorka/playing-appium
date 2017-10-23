@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.is;
  * Checks whether app loads.
  */
 @Ignore("cause: slows cucumber tests down")
-public class OpeningTest extends AbstractAppTest {
+public class LoadAppTest extends AbstractAppTest {
 
     private static App app;
     private static IOSDriver driver;

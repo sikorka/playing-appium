@@ -1,7 +1,7 @@
-package com.tigerspike.flickrbrowserapp.junit;
+package com.tigerspike.flickrbrowser.app.junit;
 
-import com.tigerspike.endpoint.FlickrPhotosEndpoint;
-import com.tigerspike.flickrbrowserapp.App;
+import com.tigerspike.flickrbrowser.endpoint.FlickrPhotosEndpoint;
+import com.tigerspike.flickrbrowser.app.App;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.*;
 import org.junit.rules.TestWatcher;
@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
  * Compares endpoint's photos with app's photos.
  */
 @Ignore("cause: slows cucumber tests down")
-public class AppSearchTest extends AppTest {
+public class SearchTest extends AbstractAppTest {
 
     protected static App app;
     protected static IOSDriver driver;
@@ -85,11 +85,6 @@ public class AppSearchTest extends AppTest {
     @AfterClass
     public static void tearDown() {
         cleanUpDriver(driver);
-    }
-
-    protected void typeAndSubmit(String tags) {
-        searchTags = tags;
-        app.searchScreen.typeSearchTermAndSubmit(searchTags);
     }
 
 }

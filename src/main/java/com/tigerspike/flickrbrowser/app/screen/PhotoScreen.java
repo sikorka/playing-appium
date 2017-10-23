@@ -1,12 +1,6 @@
-package com.tigerspike.flickrbrowserapp.screen;
+package com.tigerspike.flickrbrowser.app.screen;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * <code>FlickrBrowser app</code>'s photo screen.
@@ -16,8 +10,7 @@ public class PhotoScreen extends AbstractScreen {
     MobileElement doneButton;
 
     public void back() {
-        //TODO
-
+        //TODO or not todo, that is the question
     }
 
     public void close() {
