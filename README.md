@@ -36,7 +36,8 @@ Known issues
 Workaround: disable firewall (not recommended permanently). 
 
 - The given [Flickr photos endpoint](https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1&tags=london) 
-can't be trusted. Given test data entered I should be getting test data back in response - but it happens it does not come back.
+can't be trusted. Given test data which was entered and is not modified, I should be getting that same test data back in response - if 
+anything, in a wider set - but it happens it does not come back at all.
 
 - `searchTextField.submit()` does not work: `Method is not implemented` exception thrown. 
 Workaround: using `searchTextField.sendKeys("\n")` instead. 
