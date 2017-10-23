@@ -1,5 +1,6 @@
 package com.tigerspike.flickrbrowserapp.screen;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.pagefactory.iOSFindBy;
@@ -8,24 +9,32 @@ import org.openqa.selenium.support.CacheLookup;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tigerspike.Log.info;
+
 /**
  * <code>FlickrBrowser app</code>'s main screen.
  */
 public class SearchScreen extends AbstractScreen {
 
-    private static final String SEARCH_TEXT_FIELD_XPATH =   WINDOW_XPATH + "/UIASearchBar[1]/UIASearchBar[1]";
-    private static final String PHOTOS_XPATH =         WINDOW_XPATH + "/UIACollectionView[1]/UIACollectionCell";
-    private static final String PHOTO_BOX_XPATH =           PHOTOS_XPATH + "[__INDEX_HERE__]";
-    private static final String PHOTO_TITLE_XPATH_RELATIVE =     "//UIAStaticText[1]";
-
     @iOSFindBy(xpath = SEARCH_TEXT_FIELD_XPATH)
     @CacheLookup //the field won't change
     private IOSElement searchTextField;
 
-    @iOSFindBy(xpath = PHOTOS_XPATH)
-    private List<IOSElement> photosGrid;
+    @iOSFindBy(xpath = PHOTOS_COLLECTION_XPATH)
+    private List<IOSElement> photosCollection;
+    
+    
+    private static final String SEARCH_TEXT_FIELD_XPATH = WINDOW_XPATH + "/UIASearchBar[1]/UIASearchBar[1]";
+    private static final String PHOTOS_COLLECTION_XPATH = WINDOW_XPATH + "/UIACollectionView[1]/UIACollectionCell";
 
+    private static final String TITLE_IN_COLLECTION_ELEMENT_RELATIVE_XPATH = "//UIAStaticText";
+    private static final String PUT_INDEX_HERE = "__INDEX_HERE__";
+    private static final String PHOTO_BOX_XPATH = PHOTOS_COLLECTION_XPATH + "[" + PUT_INDEX_HERE +"]";
+    private static final String TITLE_XPATH_AFTER_CELL = "/UIAStaticText[1]";
+    private static final String TITLE_XPATH_TO_ITERATE_OVER = PHOTO_BOX_XPATH + TITLE_XPATH_AFTER_CELL;
+    private static final String TITLE_ATTRIBUTE_NAME = "label";
 
+    
     /**
      * Tells whether the screen is displayed.
      *
@@ -41,11 +50,15 @@ public class SearchScreen extends AbstractScreen {
      * @param text to search by
      * */
     public void typeSearchTermAndSubmit(String text) {
-        searchTextField.sendKeys(text);
+        if (isShown()) {
+            info("Typying in: " + text);
 
-        //searchTextField.submit(); //'Method is not implemented' exception thrown
-        //type 'enter' instead:
-        searchTextField.sendKeys("\n");
+            searchTextField.sendKeys(text);
+
+            //searchTextField.submit(); //'Method is not implemented' exception thrown
+            //type 'enter' instead:
+            searchTextField.sendKeys("\n");
+        }
     }
 
     /**
@@ -53,18 +66,48 @@ public class SearchScreen extends AbstractScreen {
      *
      * @return list of photos titles, empty list if none displayed
      * */
+    public List<String> getTitles(AppiumDriver driver) {
+        List<String> titles = new ArrayList<String>();
+
+        for (int indexInCollection = 1; indexInCollection <= photosCollection.size(); indexInCollection++) {
+            IOSElement titleElement = getTitleElement(indexInCollection, driver);
+
+            String title = titleElement.getAttribute(TITLE_ATTRIBUTE_NAME);
+
+            titles.add(title);
+        }
+
+        return titles;
+    }
+
+    private IOSElement getTitleElement(int indexInCollection, AppiumDriver driver) {
+        if (indexInCollection <= 0 || driver == null) return null;
+
+        return (IOSElement) driver.findElementByXPath(TITLE_XPATH_TO_ITERATE_OVER.
+                replace(PUT_INDEX_HERE, String.valueOf(indexInCollection)));
+    }
+
+    /**
+     * Collects titles of photos. Does not work.
+     *
+     * @return list of photos titles, empty list if none displayed
+     * */
     public List<String> getTitles() {
         List<String> titles = new ArrayList<String>();
 
-        for (MobileElement photo : photosGrid) {
-            MobileElement titleElement = photo.findElementByXPath(PHOTO_TITLE_XPATH_RELATIVE + "/@label");
-            titles.add(titleElement.getText());
+        for (MobileElement photo : photosCollection) {
+            IOSElement titleElement = (IOSElement) photo.findElementByXPath(TITLE_IN_COLLECTION_ELEMENT_RELATIVE_XPATH);
+
+            String title = titleElement.getAttribute(TITLE_ATTRIBUTE_NAME);
+
+            titles.add(title);
         }
 
-//        name: 2_ulalaGdzieKurekSzesc_image_part_002
+        // content of title UIAStaticText:
+//        name: title text
 //        type: UIAStaticText
-//        value: 2_ulalaGdzieKurekSzesc_image_part_002
-//        label: 2_ulalaGdzieKurekSzesc_image_part_002
+//        value: title text
+//        label: title text
 //        hint:
 //        enabled: true
 //        visible: true
@@ -72,7 +115,6 @@ public class SearchScreen extends AbstractScreen {
 //        location: {0, 127}
 //        size: {100, 37}
 //        xpath: //UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIACollectionCell[1]/UIAStaticText[1]
-
 
         return titles;
     }

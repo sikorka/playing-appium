@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
  * App's screen.
  */
 public abstract class AbstractScreen {
-    protected static final String WINDOW_XPATH =      "//UIAApplication[1]/UIAWindow[1]";
+    protected static final String WINDOW_XPATH = "//UIAApplication[1]/UIAWindow[1]";
 
     //WebDriver driver;
 //

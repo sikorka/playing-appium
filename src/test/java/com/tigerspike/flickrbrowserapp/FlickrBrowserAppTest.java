@@ -1,81 +1,54 @@
 package com.tigerspike.flickrbrowserapp;
 
 import com.tigerspike.FileHelper;
-import com.tigerspike.endpoint.FlickrPhotosEndpoint;
+import com.tigerspike.IOSDriverBuilder;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.remote.MobileCapabilityType;
-import org.junit.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 import java.io.File;
-import java.net.URL;
-import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-
+import static com.tigerspike.Log.info;
 
 /**
- * Compares endpoint's photos with app's photos.
+ * Any app's test.
  */
-public class FlickrBrowserAppTest {
-    private static App app;
-    private static IOSDriver driver;
-    private static FlickrPhotosEndpoint endpoint;
+public abstract class FlickrBrowserAppTest {
 
-    @BeforeClass
-    public static void setup() throws Exception {
-        driver = buildDriver();
-
-        app = new App(driver);
-
-        endpoint = new FlickrPhotosEndpoint();
+    protected static App createApp(IOSDriver driver) {
+        return new App(driver);
     }
 
-    private static IOSDriver buildDriver() throws Exception {
-        File appFile = FileHelper.fromResources(App.APP_FILE_NAME);
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(MobileCapabilityType.APPIUM_VERSION, "1.5.3");
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "9.3");
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 6 Plus");
-        capabilities.setCapability(MobileCapabilityType.APP, appFile.getAbsolutePath());
-        capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 1200);
-
-        return new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+    protected static IOSDriver createDriver() throws Exception {
+        return IOSDriverBuilder.buildDriver(getAppFile());
     }
 
-    @Test
-    @Ignore
-    public void whenAppRun_thenPhotosGridShown() {
-        assertThat("when app run, then photos grid screen opens",
-                app.searchScreen.isShown(),
-                is(true));
+    private static File getAppFile() {
+        return FileHelper.fromResources(App.APP_FILE_NAME);
     }
 
-    @Test
-    //@Ignore("cause: app.searchScreen.getTitles() not implemented")
-    public void whenSearchByTagSubmitted_thenTitlesDisplayedEqualPhotosEndpointTitles() {
-        //given
-        String tags = "u1l2a3l4a5";
-
-        List<String> titles = endpoint.getTitlesOfPhotosByTags(tags);
-
-        //when
-        app.searchScreen.typeSearchTermAndSubmit(tags);
-
-        //then
-        assertThat("when search by tag(s) performed, " +
-                        "then photos displayed are equal photos returned from Flickr photos endpoint",
-                app.searchScreen.getTitles(),
-                is(equalTo(titles)));
-    }
-
-    @AfterClass
-    public static void tearDown() {
+    protected static void cleanUpDriver(IOSDriver driver) {
         if (driver == null) return;
 
         driver.quit();
     }
+
+    /** When a test starts or ends: print test name. */
+    @Rule
+    public TestWatcher printTestStartAndEnd = new TestWatcher() {
+
+        @Override
+        protected void starting(Description description) {
+            super.starting(description);
+            info("Starting : " + description.getMethodName());
+        }
+
+        @Override
+        protected void finished(Description description) {
+            super.finished(description);
+            info("Finished : " + description.getMethodName());
+        }
+
+    };
 }
