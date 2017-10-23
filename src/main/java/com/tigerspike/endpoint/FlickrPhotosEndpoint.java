@@ -60,8 +60,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         List<Photo> items;
 
         List<String> getTitles() {
-            if (items == null || items.size() <= 0)
-                return null;
+            if (items == null) return null;
 
             List<String> list = new ArrayList<String>();
             items.forEach( photo -> list.add(photo.title) );

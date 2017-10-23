@@ -103,6 +103,14 @@ public class FlickrPhotosEndpointTest {
                 hasItem(TEST_PHOTO_4));
     }
 
+    @Test
+    public void notExistingTagsTest_whenNonExistingTags_thenPhotosListIsEmpty() {
+        List<String> titles = flickrPhotosEndpoint.getTitlesOfPhotosByTags("notExistingTagsTest_whenNonExistingTags_thenPhotosListIsEmpty");
+
+        assertThat("when search performed with non existing tags, then photos list is empty",
+                titles,
+                hasSize(0));
+    }
 
     /** When a test fails: print photos. */
     @Rule
