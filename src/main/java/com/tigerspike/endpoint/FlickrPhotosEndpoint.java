@@ -1,4 +1,4 @@
-package com.tigerspike.endpoints;
+package com.tigerspike.endpoint;
 
 import com.google.gson.GsonBuilder;
 import com.tigerspike.UrlHelper;
@@ -46,7 +46,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
      * @param tags tag, or tags separated with commas, to query Flickr photos endpoint with
      * @return a collection of images titles
      */
-    public List<String> getTitlesOfPhotosByTag(String tags) {
+    public List<String> getTitlesOfPhotosByTags(String tags) {
         photos = getPhotosByTags(tags);
 
         if (photos == null) return null;
@@ -60,8 +60,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         List<Photo> items;
 
         List<String> getTitles() {
-            if (items == null || items.size() <= 0)
-                return null;
+            if (items == null) return null;
 
             List<String> list = new ArrayList<String>();
             items.forEach( photo -> list.add(photo.title) );
@@ -104,7 +103,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
 
     private HttpGet requestEndpointByTag(String tag) {
         URI url = getEndpointUrlByTags(tag);
-        info("URL is: " + url);
+        info("URL: " + url);
 
         HttpGet get = new HttpGet(url);
 
@@ -163,20 +162,6 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         }
 
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return photos.toString();
-    }
-
-    public static void main(String... args) {
-        FlickrPhotosEndpoint e = new FlickrPhotosEndpoint();
-
-        Photos photos = e.getPhotosByTags("u1l2a3l4a5,ulalagdziekurekszesc");
-        info(photos);
-
-        info(e.getTitlesOfPhotosByTag("london"));
     }
 
 }
