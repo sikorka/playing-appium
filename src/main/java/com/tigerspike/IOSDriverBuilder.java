@@ -27,7 +27,7 @@ public class IOSDriverBuilder {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(APPIUM_VERSION, getProperty("APPIUM_VERSION"));
-        capabilities.setCapability(PLATFORM_VERSION, getProperty("PLATFORM_NAME"));
+        capabilities.setCapability(PLATFORM_VERSION, getProperty("PLATFORM_VERSION"));
         capabilities.setCapability(DEVICE_NAME, getProperty("DEVICE_NAME"));
         capabilities.setCapability(NEW_COMMAND_TIMEOUT, getProperty("NEW_COMMAND_TIMEOUT"));
 
