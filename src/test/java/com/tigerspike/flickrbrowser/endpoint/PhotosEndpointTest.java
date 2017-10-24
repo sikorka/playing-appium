@@ -126,7 +126,8 @@ public class PhotosEndpointTest {
         }
 
         private void printPhotos() {
-            info(flickrPhotosEndpoint.toString());
+            if (flickrPhotosEndpoint != null)
+                info(flickrPhotosEndpoint.toString());
         }
     };
 
