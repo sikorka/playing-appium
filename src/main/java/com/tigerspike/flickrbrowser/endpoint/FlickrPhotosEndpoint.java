@@ -64,10 +64,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
 
             List<String> list = new ArrayList<String>();
 
-            //went down with Java version for cucumber
-            //items.forEach( photo -> list.add(photo.title) );
-            for (Photo photo : items)
-                list.add(photo.title);
+            items.forEach( photo -> list.add(photo.title) );
 
             return list;
         }

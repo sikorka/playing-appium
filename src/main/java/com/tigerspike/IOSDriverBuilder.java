@@ -11,12 +11,12 @@ import static com.tigerspike.PropertiesHelper.*;
 import static io.appium.java_client.remote.MobileCapabilityType.*;
 
 /**
- * Builds driver from capabilities in <code>app.properties</code>.
+ * Builds mobileSession from capabilities in <code>app.properties</code>.
  */
 public class IOSDriverBuilder {
 
     /**
-     * Builds driver for <code>appFile</code>.
+     * Builds mobileSession for <code>appFile</code>.
      *
      * @param appFile the <code>.app</code> file coordinates
      * @return IOSDriver for the app

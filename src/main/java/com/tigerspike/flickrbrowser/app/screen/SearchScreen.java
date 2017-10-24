@@ -21,7 +21,7 @@ public class SearchScreen extends AbstractScreen {
     private IOSElement searchTextField;
 
     @iOSFindBy(xpath = PHOTOS_COLLECTION_XPATH)
-    private List<IOSElement> photosCollection;
+    private List<IOSElement> photosList;
     
     
     private static final String SEARCH_TEXT_FIELD_XPATH = WINDOW_XPATH + "/UIASearchBar[1]/UIASearchBar[1]";
@@ -69,7 +69,7 @@ public class SearchScreen extends AbstractScreen {
     public List<String> getTitles(AppiumDriver driver) {
         List<String> titles = new ArrayList<String>();
 
-        for (int indexInCollection = 1; indexInCollection <= photosCollection.size(); indexInCollection++) {
+        for (int indexInCollection = 1; indexInCollection <= photosList.size(); indexInCollection++) {
             IOSElement titleElement = getTitleElement(indexInCollection, driver);
 
             String title = titleElement.getAttribute(TITLE_ATTRIBUTE_NAME);
@@ -95,7 +95,7 @@ public class SearchScreen extends AbstractScreen {
     public List<String> getTitles() {
         List<String> titles = new ArrayList<String>();
 
-        for (MobileElement photo : photosCollection) {
+        for (MobileElement photo : photosList) {
             IOSElement titleElement = (IOSElement) photo.findElementByXPath(TITLE_IN_COLLECTION_ELEMENT_RELATIVE_XPATH);
 
             String title = titleElement.getAttribute(TITLE_ATTRIBUTE_NAME);
