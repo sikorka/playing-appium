@@ -10,7 +10,7 @@ import org.junit.runner.Description;
 
 import java.io.File;
 
-import static com.tigerspike.Log.info;
+import static com.tigerspike.Log.say;
 
 /**
  * Any app's test.
@@ -42,13 +42,13 @@ public abstract class AbstractAppTest {
         @Override
         protected void starting(Description description) {
             super.starting(description);
-            info("Starting : " + description.getMethodName());
+            say("Starting : " + description.getMethodName());
         }
 
         @Override
         protected void finished(Description description) {
             super.finished(description);
-            info("Finished : " + description.getMethodName());
+            say("Finished : " + description.getMethodName());
         }
 
     };

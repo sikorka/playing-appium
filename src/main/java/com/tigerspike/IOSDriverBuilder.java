@@ -9,6 +9,7 @@ import java.net.URL;
 
 import static com.tigerspike.PropertiesHelper.*;
 import static io.appium.java_client.remote.MobileCapabilityType.*;
+import static com.tigerspike.Log.*;
 
 /**
  * Builds mobileSession from capabilities in <code>app.properties</code>.
@@ -33,7 +34,14 @@ public class IOSDriverBuilder {
 
         capabilities.setCapability(APP, appFile.getAbsolutePath());
 
-        return new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        try {
+            return new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        } catch (Exception e) {
+            say("You've got issues: " + e.getMessage());
+            shout("Did you start Appium?");
+        }
+
+        return null;
     }
 
 }

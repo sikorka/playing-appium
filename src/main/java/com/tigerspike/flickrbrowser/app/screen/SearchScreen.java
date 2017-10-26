@@ -9,7 +9,7 @@ import org.openqa.selenium.support.CacheLookup;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tigerspike.Log.info;
+import static com.tigerspike.Log.say;
 
 /**
  * <code>FlickrBrowser app</code>'s main screen.
@@ -51,7 +51,7 @@ public class SearchScreen extends AbstractScreen {
      * */
     public void typeSearchTermAndSubmit(String text) {
         if (isShown()) {
-            info("Typying in: " + text);
+            say("Typying in: " + text);
 
             searchTextField.sendKeys(text);
 

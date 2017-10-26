@@ -10,7 +10,7 @@ import org.junit.runner.Description;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.tigerspike.Log.info;
+import static com.tigerspike.Log.say;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -70,13 +70,13 @@ public class SearchTest extends AbstractAppTest {
         }
 
         private void printPhotos() {
-            info("Search by: " + searchTags);
+            say("Search by: " + searchTags);
 
-            info("Endpoint's titles: " +
+            say("Endpoint's titles: " +
                     ((endpointTitles == null) ? null :
                     Arrays.toString(endpointTitles.toArray())));
 
-            info("App's titles: " +
+            say("App's titles: " +
                     ((appsTitles == null) ? null :
                     Arrays.toString(appsTitles.toArray())));
         }

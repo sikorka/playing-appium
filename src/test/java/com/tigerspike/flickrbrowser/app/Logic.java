@@ -2,7 +2,6 @@ package com.tigerspike.flickrbrowser.app;
 
 import com.tigerspike.FileHelper;
 import com.tigerspike.IOSDriverBuilder;
-import com.tigerspike.flickrbrowser.app.App;
 import com.tigerspike.flickrbrowser.endpoint.FlickrPhotosEndpoint;
 import io.appium.java_client.ios.IOSDriver;
 
@@ -20,20 +19,12 @@ public class Logic {
     protected IOSDriver mobileSession;
     protected FlickrPhotosEndpoint endpoint;
 
-    protected List<String> endpointTitles;
-    protected List<String> appsTitles;
+    protected String description;
     protected String searchTags;
 
 
     protected void openApp() throws Exception {
-        try {
-            mobileSession = newSession();
-        } catch (Exception e) {
-            info("Oops. Did the previous session crash? Saying goodbye and opening a new one.");
-            byeByeSimulator();
-            mobileSession = newSession();
-        }
-
+        mobileSession = newSession();
         app = createApp(mobileSession);
         endpoint = new FlickrPhotosEndpoint();
     }
@@ -55,7 +46,7 @@ public class Logic {
         app.searchScreen.typeSearchTermAndSubmit(searchTags);
     }
 
-    protected void byeByeSimulator() {
+    protected void byeByeSession() {
         if (mobileSession == null) return;
 
         mobileSession.quit();

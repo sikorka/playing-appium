@@ -15,6 +15,8 @@ public class App {
     //PhotoScreen photoScreen;
 
     public App(WebDriver driver) {
+        if (driver == null) return;
+
         searchScreen = new SearchScreen();
 
         PageFactory.initElements(

@@ -108,7 +108,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
 
     private HttpGet requestEndpointByTag(String tag) {
         URI url = getEndpointUrlByTags(tag);
-        info("URL: " + url);
+        say("URL: " + url);
 
         HttpGet get = new HttpGet(url);
 
@@ -121,7 +121,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
         try {
             return response.getEntity().getContent();
         } catch (IOException e) {
-            info("O oh, something's wrong because: " + e.getMessage());
+            say("O oh, something's wrong because: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -141,7 +141,7 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
             return photos;
 
         } catch (Exception ex) {
-            info("Failed to parse JSON because: " + ex.getMessage());
+            say("Failed to parse JSON because: " + ex.getMessage());
         }
 
         return null;
@@ -157,13 +157,13 @@ public class FlickrPhotosEndpoint extends JsonEndpoint {
             if (statusLine.getStatusCode() == 200) {
                 return response;
             } else {
-                info("Oops, server responded with: " + statusLine.getStatusCode());
+                say("Oops, server responded with: " + statusLine.getStatusCode());
             }
 
             //TODO check JSON content too
 
         } catch(IOException e) {
-            info("Something went wrong because: " + e);
+            say("Something went wrong because: " + e);
         }
 
         return null;
