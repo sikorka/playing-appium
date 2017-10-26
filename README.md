@@ -29,7 +29,7 @@ Setup your capabilities in [app/app.properties](app/app.properties).
 
     mvn clean test
 
-To execute only non-buggy tests run: 
+To execute only non-buggy scenarios run: 
 
     mvn clean test -Dcucumber.options="--tags @ignored"
 
