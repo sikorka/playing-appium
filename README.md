@@ -16,6 +16,8 @@ Mac OSX El Capitan and the following things installed:
  - Maven 3
  - Java 1.7
 
+It might work with higher version of Appium and OSX, however not checked. 
+
 
 Run
 ===
@@ -27,6 +29,9 @@ Setup your capabilities in [app/app.properties](app/app.properties).
 
     mvn clean test
 
+To execute only non-buggy tests run: 
+
+    mvn clean test -Dcucumber.options="--tags @ignored"
 
 
 Known issues
@@ -44,6 +49,7 @@ Workaround: using `searchTextField.sendKeys("\n")` instead.
 
 - Using `PageFactory`'s search mechanisms to get title text does not work. 
 Workaround: using driver's regular `findElementByXpath()` instead. 
+
 
 
 Work left
