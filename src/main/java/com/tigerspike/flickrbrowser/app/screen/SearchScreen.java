@@ -64,6 +64,7 @@ public class SearchScreen extends AbstractScreen {
     /**
      * Collects titles of photos.
      *
+     * @param driver the mobile session driver
      * @return list of photos titles, empty list if none displayed
      * */
     public List<String> getTitles(AppiumDriver driver) {

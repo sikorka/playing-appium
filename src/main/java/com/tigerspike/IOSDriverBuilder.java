@@ -22,7 +22,7 @@ public class IOSDriverBuilder {
      * @param appFile the <code>.app</code> file coordinates
      * @return IOSDriver for the app
      * */
-    public static IOSDriver buildDriver(File appFile) throws Exception {
+    public static IOSDriver buildDriver(File appFile) {
 
         if (appFile == null) return null;
 
