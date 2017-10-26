@@ -31,7 +31,7 @@ Setup your capabilities in [app/app.properties](app/app.properties).
 
 To execute only non-buggy scenarios run: 
 
-    mvn clean test -Dcucumber.options="--tags @ignored"
+    mvn clean test -Dcucumber.options="--tags ~@ignored"
 
 
 Known issues
@@ -51,9 +51,3 @@ Workaround: using `searchTextField.sendKeys("\n")` instead.
 Workaround: using driver's regular `findElementByXpath()` instead. 
 
 
-
-Work left
----------
-
- - Javadoc few places
- - Simplifications few places
