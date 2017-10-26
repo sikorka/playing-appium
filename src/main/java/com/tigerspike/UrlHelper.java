@@ -3,7 +3,7 @@ package com.tigerspike;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static com.tigerspike.Log.info;
+import static com.tigerspike.Log.say;
 import static org.apache.commons.lang3.StringUtils.*;
 
 /**
@@ -30,12 +30,12 @@ public class UrlHelper {
         try {
             uri = URI.create(stringUrlWithParam);
         } catch (Exception e) {
-                info("Sth's wrong, because: " + e.getMessage());
+                say("Sth's wrong, because: " + e.getMessage());
                 e.printStackTrace();
         }
 
         if (isBlank(uri.getQuery())) {
-            info("Url does not contain at least one param: " + stringUrlWithParam);
+            say("Url does not contain at least one param: " + stringUrlWithParam);
             return null;
         }
 
@@ -49,7 +49,7 @@ public class UrlHelper {
             return uri;
 
         } catch (URISyntaxException e) {
-            info("The URL is wrong, surprisingly! Because: " + e.getMessage());
+            say("The URL is wrong, surprisingly! Because: " + e.getMessage());
             e.printStackTrace();
         }
 

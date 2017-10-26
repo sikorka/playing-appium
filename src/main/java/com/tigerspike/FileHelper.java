@@ -28,7 +28,7 @@ public class FileHelper {
                             getFile());
 
         } catch (MalformedURLException | URISyntaxException | NullPointerException e) {
-            info("Real weird, there's sth wrong with the file (" + fileNameUnderResources + ") path: " + e.getMessage());
+            say("Real weird, there's sth wrong with the file (" + fileNameUnderResources + ") path: " + e.getMessage());
             e.printStackTrace();
         }
 

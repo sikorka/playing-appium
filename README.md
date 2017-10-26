@@ -16,6 +16,8 @@ Mac OSX El Capitan and the following things installed:
  - Maven 3
  - Java 1.7
 
+It might work with higher version of Appium and OSX, however not checked. 
+
 
 Run
 ===
@@ -27,6 +29,9 @@ Setup your capabilities in [app/app.properties](app/app.properties).
 
     mvn clean test
 
+To execute only non-buggy scenarios run: 
+
+    mvn clean test -Dcucumber.options="--tags ~@ignored"
 
 
 Known issues
@@ -46,8 +51,3 @@ Workaround: using `searchTextField.sendKeys("\n")` instead.
 Workaround: using driver's regular `findElementByXpath()` instead. 
 
 
-Work left
----------
-
- - Javadoc few places
- - Simplifications few places

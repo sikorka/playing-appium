@@ -24,6 +24,7 @@ public class PropertiesHelper {
     /**
      * Gets a property from <code>app.properties</code> merged with system set properties.
      *
+     * @param propertyName the name of property
      * @return property value from <code>app.properties</code>
      * */
     public static String getProperty(String propertyName) {

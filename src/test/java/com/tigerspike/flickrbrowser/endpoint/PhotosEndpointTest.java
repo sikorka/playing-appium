@@ -10,7 +10,7 @@ import org.junit.rules.TestWatcher;
 
 import java.util.List;
 
-import static com.tigerspike.Log.info;
+import static com.tigerspike.Log.say;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -126,7 +126,8 @@ public class PhotosEndpointTest {
         }
 
         private void printPhotos() {
-            info(flickrPhotosEndpoint.toString());
+            if (flickrPhotosEndpoint != null)
+                say(flickrPhotosEndpoint.toString());
         }
     };
 
